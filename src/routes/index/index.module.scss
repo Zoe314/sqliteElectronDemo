@@ -1,0 +1,9 @@
+$main-color: red;
+.Index {
+    span{
+        color: $main-color;
+    }
+    // :global(.ant-table-tbody > tr > td){
+    //     color: $main-color;
+    // }
+}

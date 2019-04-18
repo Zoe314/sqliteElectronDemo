@@ -1,10 +1,12 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
+// const http =require ('./http.js')
+const database = require('./db.js')
 const url = require('url')
 let win
 
-const sqlite3 = require('sqlite3');
-sqlite3.verbose();
+// const sqlite3 = require('sqlite3');
+// sqlite3.verbose();
 // const db = new sqlite3.Database(path.join(__dirname, 'zoe.db'));
 // db.serialize(function () {
 //     db.run("CREATE TABLE if not exists lorem (info TEXT)");
@@ -24,25 +26,31 @@ sqlite3.verbose();
 
 
 // const sqlite3 = require('sqlite3').verbose()
-const db = new sqlite3.Database('info.db', function () {
-    db.run('create table test(name varchar(15))', function () {
-        db.run('insert into test values("hello,world")', function () {
-            db.all('select * from test', function (err, res) {
-                if (!err) {
-                    console.log(JSON.stringify(res))
-                } else {
-                    console.log(err)
-                }
-            })
-        })
-    })
-})
+// const db = new sqlite3.Database('info.db', function () {
+//     db.run('create table demo(repname varchar(15),resname varchar(15),date TEXT,msg BLOB)', function () {
+//         db.run('insert into demo values("hello","world","2019","0x00,0x02,0x03")', function () {
+//             db.all('select * from demo', function (err, res) {
+//                 if (!err) {
+//                     console.log(JSON.stringify(res))
+//                 } else {
+//                     console.log(err)
+//                 }
+//             })
+//         })
+//     })
+// })
 
 const startUrl = process.env.ELECTRON_START_URL || url.format({
     pathname: path.join(__dirname, '/../build/index.html'),
     protocol: 'file:',
     slashes: true
 });
+// let datas = [1, 'Portal', 'service', '请求APDU指令', '3019-04-17', '2019-04-17', '0x00,0x0a,0x02,0x03']
+// db.insertnfcdata(datas)
+let datas = [1, 'Portal', 'service', '请求APDU指令', '3019-04-17', '2019-04-17', '0x00,0x0a,0x02,0x03']
+// _this.insertnfcdata(datas)
+console.log(database, '11')
+console.log(database.insertnfcdata(datas), 'ddd')
 function createWindow() {
 
     // 创建浏览器窗口。
@@ -54,7 +62,7 @@ function createWindow() {
     // win.loadURL('file://${__dirname}/index.html')
     // win.loadFile('public/index.html')
 
-    // 打开开发者工具
+    // 打开开发者工具   
     win.webContents.openDevTools()
 
     // 当 window 被关闭，这个事件会被触发。
